@@ -51,7 +51,7 @@ stages:
     - task: SSH@0
       displayName: 'run mbill api container'
       inputs:
-        sshEndpoint: 'HuaweiCloud'
+        sshEndpoint: 'serviceSSH'
         runOptions: 'inline'
         inline: |
           echo "================= to del container ===================="
