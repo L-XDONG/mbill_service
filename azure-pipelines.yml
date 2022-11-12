@@ -13,7 +13,7 @@ resources:
 variables:
   tag: '$(Build.BuildId)'
   containerName: mbillapi
-  imageName: memoyu/mbillservice
+  imageName: dongdonga/mbillservice
   appsettings: src/mbill/appsettings.Production.json
 
 stages:
@@ -30,8 +30,6 @@ stages:
         ls
         sed -i 's/{MySqlConStr}/$(MySqlConStr)/g' $(appsettings)
         sed -i 's/{RedisConStr}/$(RedisConStr)/g' $(appsettings)
-        sed -i 's/{QiniuAk}/$(QiniuAk)/g' $(appsettings)
-        sed -i 's/{QiniuSk}/$(QiniuSk)/g' $(appsettings)
         sed -i 's/{JwtSecurityKey}/$(JwtSecurityKey)/g' $(appsettings)
         sed -i 's/{MiniProAppId}/$(MiniProAppId)/g' $(appsettings)
         sed -i 's/{MiniProAppSecret}/$(MiniProAppSecret)/g' $(appsettings)
@@ -42,7 +40,7 @@ stages:
     - task: Docker@2
       displayName: 'build docker image and push'
       inputs:
-        containerRegistry: 'memoyu-docker'
+        containerRegistry: 'dongdonga-docker'
         repository: $(imageName)
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
