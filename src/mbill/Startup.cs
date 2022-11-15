@@ -15,7 +15,7 @@ public class Startup
         services.AddSwagger();//配置注册Swagger
         services.AddCap();//配置CAP
         services.AddAutoMapper();//配置实体映射
-        // services.AddCsRedisCore();//配置注册Redis缓存
+        services.AddCsRedisCore();//配置注册Redis缓存
         services.AddMiniProfilerSetup();//配置注册监控
         services.AddIpRateLimiting();//配置注册限流
         services.AddHealthChecks();//配置注册健康检查
