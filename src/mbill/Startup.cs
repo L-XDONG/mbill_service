@@ -10,27 +10,27 @@ public class Startup
     public IConfiguration Configuration { get; }
     public void ConfigureServices(IServiceCollection services)
     {
-        services.AddController();//ÅäÖÃ×¢²áController
-        services.AddJwtBearer();//ÅäÖÃJwt
-        services.AddSwagger();//ÅäÖÃ×¢²áSwagger
-        services.AddCap();//ÅäÖÃCAP
-        services.AddAutoMapper();//ÅäÖÃÊµÌåÓ³Éä
-        services.AddCsRedisCore();//ÅäÖÃ×¢²áRedis»º´æ
-        services.AddMiniProfilerSetup();//ÅäÖÃ×¢²á¼à¿Ø
-        services.AddIpRateLimiting();//ÅäÖÃ×¢²áÏŞÁ÷
-        services.AddHealthChecks();//ÅäÖÃ×¢²á½¡¿µ¼ì²é
-        services.AddCorsConfig();//ÅäÖÃ¿çÓò
-        services.AddQiniuClient(Configuration); // ÅäÖÃÆßÅ£ÔÆ·şÎñ
-        services.AddHttpClients();//ÅäÖÃHttpClient
+        services.AddController();//é…ç½®æ³¨å†ŒController
+        services.AddJwtBearer();//é…ç½®Jwt
+        services.AddSwagger();//é…ç½®æ³¨å†ŒSwagger
+        services.AddCap();//é…ç½®CAP
+        services.AddAutoMapper();//é…ç½®å®ä½“æ˜ å°„
+        // services.AddCsRedisCore();//é…ç½®æ³¨å†ŒRedisç¼“å­˜
+        services.AddMiniProfilerSetup();//é…ç½®æ³¨å†Œç›‘æ§
+        services.AddIpRateLimiting();//é…ç½®æ³¨å†Œé™æµ
+        services.AddHealthChecks();//é…ç½®æ³¨å†Œå¥åº·æ£€æŸ¥
+        services.AddCorsConfig();//é…ç½®è·¨åŸŸ
+        services.AddQiniuClient(Configuration); // é…ç½®ä¸ƒç‰›äº‘æœåŠ¡
+        services.AddHttpClients();//é…ç½®HttpClient
     }
 
     public void ConfigureContainer(ContainerBuilder builder)
     {
-        builder.RegisterModule(new AutofacModule());//×¢²áÒ»Ğ©ÔÓÏî
-        builder.RegisterModule(new RepositoryModule());//×¢²á²Ö´¢
-        builder.RegisterModule(new ServiceModule());//×¢²á·şÎñ
-        builder.RegisterModule(new DependencyModule());//×Ô¶¯×¢²á£¬ÀàËÆAbpÖĞµÄ¼Ì³Ğ¶ÔÓ¦µÄ½Ó¿Ú¾Í»á×¢²á¶ÔÓ¦½Ó¿ÚµÄÉúÃüÖÜÆÚ
-        builder.RegisterModule(new FreeSqlModule());//×¢²áFreeSql
+        builder.RegisterModule(new AutofacModule());//æ³¨å†Œä¸€äº›æ‚é¡¹
+        builder.RegisterModule(new RepositoryModule());//æ³¨å†Œä»“å‚¨
+        builder.RegisterModule(new ServiceModule());//æ³¨å†ŒæœåŠ¡
+        builder.RegisterModule(new DependencyModule());//è‡ªåŠ¨æ³¨å†Œï¼Œç±»ä¼¼Abpä¸­çš„ç»§æ‰¿å¯¹åº”çš„æ¥å£å°±ä¼šæ³¨å†Œå¯¹åº”æ¥å£çš„ç”Ÿå‘½å‘¨æœŸ
+        builder.RegisterModule(new FreeSqlModule());//æ³¨å†ŒFreeSql
     }
 
     public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -40,25 +40,25 @@ public class Startup
             app.UseDeveloperExceptionPage();
             app.UseSwagger().UseSwaggerUI(() => GetType().GetTypeInfo().Assembly.GetManifestResourceStream("mbill.index.html"));
         }
-        //¿çÓò
+        //è·¨åŸŸ
         app.UseCors(Appsettings.Cors.CorsName);
 
-        //¾²Ì¬ÎÄ¼ş
+        //é™æ€æ–‡ä»¶
         app.UseStaticFiles();
 
-        // IpÏŞÁ÷
+        // Ipé™æµ
         app.UseMiddleware<IpLimitMiddleware>();
 
-        // ¼ÇÂ¼ipÇëÇó
+        // è®°å½•ipè¯·æ±‚
         app.UseMiddleware<IPLogMilddleware>();
 
-        ////Òì³£´¦ÀíÖĞ¼ä¼ş
+        ////å¼‚å¸¸å¤„ç†ä¸­é—´ä»¶
         //app.UseMiddleware<ExceptionHandlerMiddleware>();
 
-        //ÈÏÖ¤ÖĞ¼ä¼ş
+        //è®¤è¯ä¸­é—´ä»¶
         app.UseAuthentication();
 
-        // ĞÔÄÜ·ÖÎö
+        // æ€§èƒ½åˆ†æ
         app.UseMiniProfiler();
 
         app.UseRouting()
